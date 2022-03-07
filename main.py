@@ -1,4 +1,5 @@
 import pygame as pg
+#ball
 pg.init()
 
 surface = pg.display.set_mode((500, 500))
