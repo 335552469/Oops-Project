@@ -10,15 +10,8 @@ class Box(object):
 
     def draw_box(self):
         pass
-#github test
     def glow(self):
         pass
-    def hello(self):
-        print("helloworld")
-    
-    def hello(self):
-        print("hello")
-        
     
 
 while run: 
