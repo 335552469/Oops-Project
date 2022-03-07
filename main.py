@@ -1,7 +1,7 @@
 import pygame as pg
 #ball
 pg.init()
-# SACK
+
 surface = pg.display.set_mode((500, 500))
 run = True
 # comment 1
