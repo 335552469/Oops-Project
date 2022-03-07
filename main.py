@@ -16,6 +16,10 @@ class Box(object):
     def hello(self):
         print("helloworld")
     
+    def hello(self):
+        print("hello")
+        
+    
 
 while run: 
     for event in pg.event.get():
