@@ -14,7 +14,8 @@ class Box(object):
     def glow(self):
         pass
     def hello(self):
-        print("helloworld")
+        print("hello")
+        
     
 
 while run: 
