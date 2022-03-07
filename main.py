@@ -4,7 +4,7 @@ pg.init()
 
 surface = pg.display.set_mode((500, 500))
 run = True
-# comment 1
+# pepee
 class Box(object):
     def __init__(self):
         pass 
