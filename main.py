@@ -1,7 +1,7 @@
 import pygame as pg
 #ball
 pg.init()
-
+# SACK
 surface = pg.display.set_mode((500, 500))
 run = True
 # comment 1
@@ -12,7 +12,7 @@ class Box(object):
     def draw_box(self):
         pass
     def glow(self):
-        pass
+        print("hello world")
     
 
 while run: 
