@@ -11,7 +11,7 @@ class Box(object):
     def draw_box(self):
         pass
     def glow(self):
-        pass
+        print("hello world")
     
 
 while run: 
