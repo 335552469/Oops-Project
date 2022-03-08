@@ -13,7 +13,10 @@ class Box(object):
     def draw_box(self): # draws box
         pass
 
-    def glow(self): # this isnt manditory but I wanted this to be the affect that happens when the mouse hovers over the box
+    def mouse_detection(self): # detect the mouse
+        pass
+
+    def glow(self): # The method used to glow the square when showing a squence and once the mouse is pressed
         pass
 
 # We inherit the box into the box matrix class in order to mess with it from within the function
