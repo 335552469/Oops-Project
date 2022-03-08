@@ -43,6 +43,12 @@ class Sequence(object):
         if self.sequence == sequence:
             return True
         return False
+    
+    def reveal_sequence(self, cards, level):
+        for i in cards:
+            for j in i:
+                i.glow()
+                time.sleep(2/(level)*1.2)
 
     
 
@@ -83,6 +89,7 @@ while True:
                 print("you lose")
             sequence_obtained = []
             level_sequence = Sequence(level)
+            level_sequence.reveal(box_matrix, level)
         
         
     pygame.display.update()
