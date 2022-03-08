@@ -17,12 +17,16 @@ class Box(object):
 
     def draw_box(self, surface): # draws box
         pygame.draw.rect(surface, self.box_colour, (self.x, self.y, self.width, self.height), 0, 5)
-    def glow(self, mouse): # this isnt manditory but I wanted this to be the affect that happens when the mouse hovers over the box
+
+    def mouse_detection(self, mouse):
         if mouse[0] >= self.x and mouse[0] <= self.x + self.width:
             if mouse[1] >= self.y and mouse[1] <= self.y + self.height:
                 return True
         else:
             return False
+    def glow(self):
+        pass
+
 box_matrix = [[Box((j)*130 + 60, (i)*130 + 60, 120, 120, j) for j in range(3)] for i in range(3)]
 
 while True:
@@ -41,7 +45,7 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             for i in box_matrix:
                 for j in i:
-                    if j.glow(pygame.mouse.get_pos()) == True:
+                    if j.mouse_detection(pygame.mouse.get_pos()) == True:
                         print("mouse has been pressed")
         
     pygame.display.update()
