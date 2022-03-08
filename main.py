@@ -8,7 +8,7 @@ run = True
 class Box(object):
 
     def __init__(self): # innitialize some basic values of our boxes 
-        pass 
+        pass
 
     def draw_box(self): # draws box
         pass
