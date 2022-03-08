@@ -1,48 +1,53 @@
-import pygame as pg
-pg.init()
+import pygame, sys
+pygame.init()
 
-surface = pg.display.set_mode((500, 500))
+
+screenX, screenY = 500, 500
+surface = pygame.display.set_mode((screenX, screenY))
+
 run = True
 
-# The box class should be a class that draws a box for each point in the matrix
 class Box(object):
 
-    def __init__(self): # innitialize some basic values of our boxes 
+    def __init__(self, x, y, width, height, order): # innitialize some basic values of our boxes 
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.order = order
+        self.box_colour = (37,115,193)
+
+    def draw_box(self, surface): # draws box
+        pygame.draw.rect(surface, self.box_colour, (self.x, self.y, self.width, self.height), 0, 9)
+
+    def mouse_detection(self, mouse):
+        if mouse[0] >= self.x and mouse[0] <= self.x + self.width:
+            if mouse[1] >= self.y and mouse[1] <= self.y + self.height:
+                return True
+        else:
+            return False
+    def glow(self):
         pass
 
-    def draw_box(self): # draws box
-        pass
+box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i in range(3)]
 
-    def mouse_detection(self): # detect the mouse
-        pass
+while True:
+    surface.fill((43 ,135 ,209))
 
-    def glow(self): # The method used to glow the square when showing a squence and once the mouse is pressed
-        pass
+    for i in box_matrix:
+        for j in i:
+            j.draw_box(surface)
 
-# We inherit the box into the box matrix class in order to mess with it from within the function
-class Matrix(Box):
-    def __init__(self): # if you dont remember class inheritence this is some basic syntax, if you would like to change it go ahead.
-        super().__init__()
-    
-    # This method will populate the 2D list with initial values (not manditory, possible to do outside of the class, class will just take matrix as a parameter)
-    def populate(self):
-        pass
-    
-    # Most important method. Used to increase the size of the list going from a (3x3) list to a (4x4) to (5x5).... or however it increases online (check website for details)
-    # Note: Dont make it increase on win, we will do that in the main code in order to keep our classes organized and on topic
-    def get_bigger(self):
-        pass
-
-# ONLY MANDITORY VARIABLE SHOULD BE A 2D 3x3 MATRIX
-matrix = [[0 for j in range(3)] for i in range(3)] # --> this just makes a matrix of 3x3 zeros using list comprehension, change it to your hearts content based on the coding process
-
-while run: 
-    for event in pg.event.get():
-        if event.type == pg.QUIT: 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             run = False
+            pygame.quit()
+            sys.exit()
 
-    surface.fill((23, 85, 255))
-
-
-    pg.display.update()
-            
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for i in box_matrix:
+                for j in i:
+                    if j.mouse_detection(pygame.mouse.get_pos()) == True:
+                        print("mouse has been pressed")
+        
+    pygame.display.update()
