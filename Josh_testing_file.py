@@ -1,7 +1,9 @@
 import pygame, sys
 pygame.init()
 
-surface = pygame.display.set_mode((500, 500))
+
+screenX, screenY = 500, 500
+surface = pygame.display.set_mode((screenX, screenY))
 
 run = True
 
@@ -16,7 +18,7 @@ class Box(object):
         self.box_colour = (37,115,193)
 
     def draw_box(self, surface): # draws box
-        pygame.draw.rect(surface, self.box_colour, (self.x, self.y, self.width, self.height), 0, 5)
+        pygame.draw.rect(surface, self.box_colour, (self.x, self.y, self.width, self.height), 0, 9)
 
     def mouse_detection(self, mouse):
         if mouse[0] >= self.x and mouse[0] <= self.x + self.width:
@@ -27,7 +29,7 @@ class Box(object):
     def glow(self):
         pass
 
-box_matrix = [[Box((j)*130 + 60, (i)*130 + 60, 120, 120, j) for j in range(3)] for i in range(3)]
+box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i in range(3)]
 
 while True:
     surface.fill((43 ,135 ,209))
