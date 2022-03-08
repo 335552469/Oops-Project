@@ -7,6 +7,10 @@ surface = pygame.display.set_mode((screenX, screenY))
 
 run = True
 
+
+#TODO: function to fade boxes in/out
+#TODO: sequences function to create a new round
+
 class Box(object):
 
     def __init__(self, x, y, width, height, order): # innitialize some basic values of our boxes 
