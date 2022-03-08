@@ -36,8 +36,11 @@ class Box(object):
 
 
 class Sequence(object):
-    def __init__(self, seq_amount):
-        self.sequence = [[random.randint(1,2),random.randint(1,2)] for i in range(seq_amount)]
+    def __init__(self, sequence, seq_amount):
+        self.sequence = sequence
+        if (seq_amount - len(self.sequence)) > 0:
+            self.sequence.append([[random.randint(1,2),random.randint(1,2)] for i in range(seq_amount - len(self.sequence))])
+        print(self.sequence)
 
     def check_sequence(self, sequence):
         if self.sequence == sequence:
@@ -47,16 +50,17 @@ class Sequence(object):
     def reveal_sequence(self, cards, level):
         for i in cards:
             for j in i:
-                i.glow()
+                print(j)
+                j.glow()
                 time.sleep(2/(level)*1.2)
 
-    
 
-test = Sequence(5)
+
+
 
 box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, [j,i]) for j in range(3)] for i in range(3)]
 sequence_obtained = []
-level_sequence = Sequence(level)
+level_sequence = Sequence([[random.randint(1,2),random.randint(1,2)] for i in range(level)], level)
 
 
 print("Level",level,"| Winning Sequence: ",level_sequence.sequence)
@@ -88,8 +92,8 @@ while True:
             else:
                 print("you lose")
             sequence_obtained = []
-            level_sequence = Sequence(level)
-            level_sequence.reveal(box_matrix, level)
+            level_sequence = Sequence(level_sequence.sequence, level)
+            level_sequence.reveal_sequence(box_matrix, level)
         
         
     pygame.display.update()
