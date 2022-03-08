@@ -9,7 +9,7 @@ run = True
 
 class Box(object):
 
-    def __init__(self, x, y, width, height, order): # innitialize some basic values of our boxes 
+    def __init__(self, x, y, width, height, order): # initialize some basic values of our boxes 
         self.x = x
         self.y = y
         self.width = width
