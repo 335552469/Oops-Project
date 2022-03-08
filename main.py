@@ -1,5 +1,4 @@
-from msilib import sequence
-import pygame, sys, random, time
+import pygame, sys
 pygame.init()
 
 
@@ -7,7 +6,7 @@ screenX, screenY = 500, 500
 surface = pygame.display.set_mode((screenX, screenY))
 
 run = True
-level = 1
+
 
 #TODO: function to fade boxes in/out
 #TODO: sequences function to create a new round
@@ -34,27 +33,7 @@ class Box(object):
     def glow(self):
         pass
 
-
-class Sequence(object):
-    def __init__(self, seq_amount):
-        self.sequence = [[random.randint(1,2),random.randint(1,2)] for i in range(seq_amount)]
-
-    def check_sequence(self, sequence):
-        if self.sequence == sequence:
-            return True
-        return False
-
-    
-
-test = Sequence(5)
-
-box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, [j,i]) for j in range(3)] for i in range(3)]
-sequence_obtained = []
-level_sequence = Sequence(level)
-
-
-print("Level",level,"| Winning Sequence: ",level_sequence.sequence)
-
+box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i in range(3)]
 
 while True:
     surface.fill((43 ,135 ,209))
@@ -68,21 +47,11 @@ while True:
             run = False
             pygame.quit()
             sys.exit()
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             for i in box_matrix:
                 for j in i:
                     if j.mouse_detection(pygame.mouse.get_pos()) == True:
-                        sequence_obtained.append(j.order)
-                        print(sequence_obtained)
-                        print(level, len(sequence_obtained))
-        if len(sequence_obtained) == level:
-            if level_sequence.check_sequence(sequence_obtained):
-                print("you win")
-                level += 1
-            else:
-                print("you lose")
-            sequence_obtained = []
-            level_sequence = Sequence(level)
-        
+                        print("mouse has been pressed")
         
     pygame.display.update()
