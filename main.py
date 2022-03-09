@@ -1,12 +1,12 @@
 import pygame, sys
 pygame.init()
 
-
 screenX, screenY = 500, 500
 surface = pygame.display.set_mode((screenX, screenY))
 
 run = True
 
+# Isaak Makes a change
 class Box(object):
 
     def __init__(self, x, y, width, height, order): # innitialize some basic values of our boxes 
