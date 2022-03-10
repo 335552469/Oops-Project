@@ -15,7 +15,7 @@ class Box(object):
         self.width = width
         self.height = height
         self.order = order
-        self.box_colour = (37,115,193)
+        self.box_colour = [37,115,193]
 
     def draw_box(self, surface): # draws box
         pygame.draw.rect(surface, self.box_colour, (self.x, self.y, self.width, self.height), 0, 9)
@@ -27,7 +27,7 @@ class Box(object):
         else:
             return False
     def glow(self):
-        pass
+        self.box_colour = [255, 255, 255]
 
 box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i in range(3)]
 
@@ -48,6 +48,7 @@ while True:
             for i in box_matrix:
                 for j in i:
                     if j.mouse_detection(pygame.mouse.get_pos()) == True:
-                        print("mouse has been pressed")
+                        j.glow()
         
     pygame.display.update()
+    
