@@ -50,7 +50,7 @@ class Box(object):
             pygame.display.flip()
             if start_time+length < time.time():
                 break
-            
+
 class HighScore:
     def __init__(self):
         self.score = 0
@@ -59,7 +59,7 @@ class HighScore:
     def read_score(self):
         try:
             with open("highscore.txt", "r") as file:
-                self.score = int(file.readline())
+                self.score = str(file.readline()[:-1])
                 self.name = file.readline()
         except FileNotFoundError:
             print("No high score yet.")
@@ -99,6 +99,11 @@ def new_sequence():
         box_matrix[i[0]][i[1]].glow(1,(255,255,255))
 
 
+highscore = HighScore()
+
+highscore.read_score()
+print(highscore)
+highscore.write_score("69","jonny")
 
 while True:
     surface.fill((43 ,135 ,209))
