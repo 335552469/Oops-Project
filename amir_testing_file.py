@@ -14,7 +14,7 @@ level = 1
 
 class Box(object):
 
-    def __init__(self, x, y, width, height, order): # innitialize some basic values of our boxes 
+    def __init__(self, x, y, width, height, order): # initialize some basic values of our boxes 
         self.x = x
         self.y = y
         self.width = width
@@ -55,7 +55,16 @@ class Sequence(object):
                 time.sleep(2/(level)*1.2)
 
 
+class Sound:
+    def __init__(self):
+        self.cardflip_sound = pygame.mixer.Sound("cardflip.wav")
+        self.shuffle_sound = pygame.mixer.Sound("shuffle.wav")
 
+    def cardflip(self):
+        self.cardflip_sound.play()
+
+    def shuffle(self):
+        self.shuffle_sound.play()
 
 
 box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, [j,i]) for j in range(3)] for i in range(3)]
