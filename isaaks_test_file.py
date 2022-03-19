@@ -103,7 +103,7 @@ score = 0
 while True:
     surface.fill((43 ,135 ,209))
     font = pygame.font.SysFont('Cooper', 30)
-    write = font.render("HighScore: " + str(highscore.score) + "            Score: " + str(score), False, (0, 0, 0))
+    write = font.render("HighScore: " + str(highscore.score) + "            Score: " + str(score), True, (0, 0, 0))
     surface.blit(write, (55, 20)) 
 
     for i in box_matrix:
@@ -125,6 +125,8 @@ while True:
                             sound.cardflip()
                             j.glow(1,(255,255,255))
                             clicks += 1
+                            if clicks == len(sequence)-1:
+                                score +=1
                         else:
                             j.glow(1,(255,0,0))
                             clicks = 0
@@ -135,5 +137,5 @@ while True:
     if clicks == len(sequence):
         new_sequence()
         clicks = 0
-        score+=1
+        
     pygame.display.update()
