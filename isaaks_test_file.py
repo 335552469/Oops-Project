@@ -103,7 +103,7 @@ highscore.read_score()
 while True:
     surface.fill((43 ,135 ,209))
     font = pygame.font.SysFont('Cooper', 30)
-    write = font.render("Score: " + str(highscore.score), False, (0, 0, 0))
+    write = font.render("HighScore: " + str(highscore.score) + "            Score: " + str(len(sequence)-1), False, (0, 0, 0))
     surface.blit(write, (55, 20)) 
 
     for i in box_matrix:
@@ -121,8 +121,6 @@ while True:
                     if j.mouse_detection(pygame.mouse.get_pos()) == True:
                         xpos = j.x // 153
                         ypos = j.y // 153
-                        print(sequence)
-                        print(clicks)
                         if xpos == sequence[clicks][1] and ypos == sequence[clicks][0]:
                             sound.cardflip()
                             j.glow(1,(255,255,255))
