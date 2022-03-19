@@ -72,11 +72,13 @@ sequence = []
 def new_sequence():
     x = random.randint(0, 2)
     y = random.randint(0, 2)
-    sequence.append((x, y))
+    sequence.append([x, y])
     sound.shuffle()
     print(sequence)
-    #for i in range(len(sequence)):         This is where the code for showing the sequence is going to go
-      #  box_matrix[sequence[0]][sequence[1]].glow
+
+    for i in sequence:
+        print(i)
+        box_matrix[i[0]][i[1]].glow(1)
 
 
 
