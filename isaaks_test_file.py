@@ -30,10 +30,27 @@ class Box(object):
                 return True
         else:
             return False
-    def glow(self):
-        self.box_colour = [255, 255, 255]
-    def unglow(self):
-        self.box_colour = [37,115,193]
+
+    def interpolate_color(self, start_time, max_fade_time, color):
+        fract = (time.time() - start_time) / (max_fade_time)
+        if fract > 0.5:
+            fract = 1 - fract * 1.3
+        color1 = pygame.Color(*self.default_color)
+        if fract < 0:
+            return pygame.Color(*self.default_color)
+        return color1.lerp(color, fract)
+
+    def glow(self,length):
+        
+        start_time = time.time()
+        while True:
+            time.sleep(0.01)
+            current_color = self.interpolate_color(start_time,length,pygame.Color(255,255,255))
+            self.box_colour = current_color
+            self.draw_box(surface)
+            pygame.display.flip()
+            if start_time+length < time.time():
+                break
 
 
 box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i in range(3)]
@@ -82,7 +99,8 @@ while True:
         clicks = 0
         for i in box_matrix:
             for j in i:
-                j.unglow()
+                pass
+            #    j.unglow()
 
 
     
