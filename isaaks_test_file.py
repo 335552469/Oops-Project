@@ -1,6 +1,6 @@
 from msilib import sequence
 from multiprocessing.connection import wait
-import pygame, sys, random
+import pygame, sys, random, time
 pygame.init()
 
 screenX, screenY = 500, 500
@@ -20,6 +20,7 @@ class Box(object):
         self.height = height
         self.order = order
         self.box_colour = [37,115,193]
+        self.default_color = self.box_colour
 
     def draw_box(self, surface): # draws box
         pygame.draw.rect(surface, self.box_colour, (self.x, self.y, self.width, self.height), 0, 9)
@@ -89,7 +90,7 @@ while True:
                         ypos = j.y // 153
                         if xpos == sequence[clicks][0] and ypos == sequence[clicks][1]:
 
-                            j.glow()
+                            j.glow(1)
                             clicks += 1
                         else:
                             print("you loose dumbas")
