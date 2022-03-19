@@ -103,7 +103,7 @@ while True:
                         ypos = j.y // 153
                         print(sequence[clicks],xpos,ypos)
 
-                        if xpos == sequence[clicks][0] and ypos == sequence[clicks][1]:
+                        if xpos == sequence[clicks][1] and ypos == sequence[clicks][0]:
                             sound.cardflip()
                             j.glow(1)
                             clicks += 1
