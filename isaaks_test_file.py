@@ -94,7 +94,6 @@ while True:
             run = False
             pygame.quit()
             sys.exit()
- 
         if event.type == pygame.MOUSEBUTTONDOWN:
             for i in box_matrix:
                 for j in i:
