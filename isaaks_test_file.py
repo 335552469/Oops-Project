@@ -74,10 +74,8 @@ def new_sequence():
     y = random.randint(0, 2)
     sequence.append([x, y])
     sound.shuffle()
-    print(sequence)
 
     for i in sequence:
-        print(i)
         box_matrix[i[0]][i[1]].glow(1)
 
 
@@ -101,9 +99,8 @@ while True:
                     if j.mouse_detection(pygame.mouse.get_pos()) == True:
                         xpos = j.x // 153
                         ypos = j.y // 153
-                        print(sequence[clicks],xpos,ypos)
 
-                        if xpos == sequence[clicks][0] and ypos == sequence[clicks][1]:
+                        if xpos == sequence[clicks][1] and ypos == sequence[clicks][0]:
                             sound.cardflip()
                             j.glow(1)
                             clicks += 1
@@ -112,14 +109,5 @@ while True:
 
     if clicks == len(sequence):
         new_sequence()
-        clicks = 0
-        for i in box_matrix:
-            for j in i:
-                pass
-            #    j.unglow()
-
-
-    
-    
-    # box_matrix[0][0].glow()    
+        clicks = 0 
     pygame.display.update()
