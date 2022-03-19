@@ -137,6 +137,7 @@ while True:
 
                             if score >= int(highscore.score):
                                 highscore.score = str(score)
+                                highscore.write_score()
 
     if clicks == len(sequence):
         new_sequence()
