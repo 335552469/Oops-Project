@@ -126,9 +126,9 @@ while True:
                             clicks += 1
                             if clicks == len(sequence)-1:
                                 score +=1
-                            j.glow(1,(255,255,255))
+                            j.glow(0.5,(255,255,255))
                         else:
-                            j.glow(1,(255,0,0))
+                            j.glow(0.5,(255,0,0))
                             clicks = 0
                             sequence = []
                             score = 0
