@@ -89,5 +89,3 @@ while True:
     
     # box_matrix[0][0].glow()    
     pygame.display.update()
-
-    
