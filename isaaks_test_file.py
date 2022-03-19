@@ -50,6 +50,27 @@ class Box(object):
             pygame.display.flip()
             if start_time+length < time.time():
                 break
+            
+class HighScore:
+    def __init__(self):
+        self.score = 0
+        self.name = "No one"
+
+    def read_score(self):
+        try:
+            with open("highscore.txt", "r") as file:
+                self.score = int(file.readline())
+                self.name = file.readline()
+        except FileNotFoundError:
+            print("No high score yet.")
+
+    def write_score(self, score, name):
+        with open("highscore.txt", "w") as file:
+            file.write(str(score) + "\n")
+            file.write(name)
+
+    def __str__(self):
+        return f"The high score is {self.score}, set by {self.name}"
 
 
 class Sound:
