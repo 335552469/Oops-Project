@@ -120,7 +120,8 @@ while True:
                     if j.mouse_detection(pygame.mouse.get_pos()) == True:
                         xpos = j.x // 153
                         ypos = j.y // 153
-
+                        print(sequence)
+                        print(clicks)
                         if xpos == sequence[clicks][1] and ypos == sequence[clicks][0]:
                             sound.cardflip()
                             j.glow(1,(255,255,255))
