@@ -93,7 +93,7 @@ def new_sequence():
     sound.shuffle()
 
     for i in sequence:
-        box_matrix[i[0]][i[1]].glow(1,(255,255,255))
+        box_matrix[i[0]][i[1]].glow(0.5,(255,255,255))
 
 
 highscore = HighScore()
@@ -123,10 +123,10 @@ while True:
                         ypos = j.y // 153
                         if xpos == sequence[clicks][1] and ypos == sequence[clicks][0]:
                             sound.cardflip()
-                            j.glow(1,(255,255,255))
                             clicks += 1
                             if clicks == len(sequence)-1:
                                 score +=1
+                            j.glow(1,(255,255,255))
                         else:
                             j.glow(1,(255,0,0))
                             clicks = 0
