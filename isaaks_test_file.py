@@ -44,9 +44,9 @@ def new_sequence():
     y = random.randint(0, 2)
     sequence.append((x, y))
     print(sequence)
-    for i in range(len(sequence)):
-        box_matrix[sequence[0]][sequence[1]].glow
-    
+    #for i in range(len(sequence)):         This is where the code for showing the sequence is going to go
+      #  box_matrix[sequence[0]][sequence[1]].glow
+
 
 
 
@@ -68,8 +68,14 @@ while True:
             for i in box_matrix:
                 for j in i:
                     if j.mouse_detection(pygame.mouse.get_pos()) == True:
-                        j.glow()
-                        clicks += 1
+                        xpos = j.x // 153
+                        ypos = j.y // 153
+                        if xpos == sequence[clicks][0] and ypos == sequence[clicks][1]:
+
+                            j.glow()
+                            clicks += 1
+                        else:
+                            print("you loose dumbas")
 
     if clicks == len(sequence):
         new_sequence()
