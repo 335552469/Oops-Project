@@ -8,7 +8,6 @@ surface = pygame.display.set_mode((screenX, screenY))
 
 run = True
 clicks = 0
-level = 0
 
 class Box(object):
 
@@ -104,6 +103,8 @@ while True:
                             j.glow(1)
                             clicks += 1
                         else:
+                            clicks = 0
+                            sequence = []
                             print("you loose dumbas")
 
     if clicks == len(sequence):
