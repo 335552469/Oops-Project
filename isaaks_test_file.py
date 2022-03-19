@@ -99,11 +99,11 @@ def new_sequence():
 highscore = HighScore()
 
 highscore.read_score()
-
+score = 0
 while True:
     surface.fill((43 ,135 ,209))
     font = pygame.font.SysFont('Cooper', 30)
-    write = font.render("HighScore: " + str(highscore.score) + "            Score: " + str(len(sequence)-1), False, (0, 0, 0))
+    write = font.render("HighScore: " + str(highscore.score) + "            Score: " + str(score), False, (0, 0, 0))
     surface.blit(write, (55, 20)) 
 
     for i in box_matrix:
@@ -134,5 +134,6 @@ while True:
 
     if clicks == len(sequence):
         new_sequence()
-        clicks = 0 
+        clicks = 0
+        score+=1
     pygame.display.update()
