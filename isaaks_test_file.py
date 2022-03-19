@@ -39,12 +39,12 @@ class Box(object):
             return pygame.Color(*self.default_color)
         return color1.lerp(color, fract)
 
-    def glow(self,length):
+    def glow(self,length,color):
         
         start_time = time.time()
         while True:
             time.sleep(0.01)
-            current_color = self.interpolate_color(start_time,length,pygame.Color(255,255,255))
+            current_color = self.interpolate_color(start_time,length,pygame.Color(color))
             self.box_colour = current_color
             self.draw_box(surface)
             pygame.display.flip()
@@ -75,7 +75,7 @@ def new_sequence():
     sound.shuffle()
 
     for i in sequence:
-        box_matrix[i[0]][i[1]].glow(1)
+        box_matrix[i[0]][i[1]].glow(1,(255,255,255))
 
 
 
@@ -100,9 +100,11 @@ while True:
 
                         if xpos == sequence[clicks][1] and ypos == sequence[clicks][0]:
                             sound.cardflip()
-                            j.glow(1)
+                            j.glow(1,(255,255,255))
                             clicks += 1
                         else:
+                            
+                            j.glow(1,(255,0,0))
                             clicks = 0
                             sequence = []
                             print("you loose dumbas")
