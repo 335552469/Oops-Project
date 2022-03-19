@@ -93,7 +93,7 @@ def new_sequence():
     sound.shuffle()
 
     for i in sequence:
-        box_matrix[i[0]][i[1]].glow(1,(165,42,42))
+        box_matrix[i[0]][i[1]].glow(1,(255,255,255))
 
 
 highscore = HighScore()
