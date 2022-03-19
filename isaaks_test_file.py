@@ -54,23 +54,20 @@ class Box(object):
 class HighScore:
     def __init__(self):
         self.score = 0
-        self.name = "No one"
 
     def read_score(self):
         try:
             with open("highscore.txt", "r") as file:
-                self.score = str(file.readline()[:-1])
-                self.name = file.readline()
+                self.score = str(file.readline())
         except FileNotFoundError:
             print("No high score yet.")
 
-    def write_score(self, score, name):
+    def write_score(self, score):
         with open("highscore.txt", "w") as file:
-            file.write(str(score) + "\n")
-            file.write(name)
+            file.write(str(score))
 
     def __str__(self):
-        return f"The high score is {self.score}, set by {self.name}"
+        return f"The high score is {self.score}"
 
 
 class Sound:
@@ -103,7 +100,7 @@ highscore = HighScore()
 
 highscore.read_score()
 print(highscore)
-highscore.write_score("69","jonny")
+highscore.write_score(69)
 
 while True:
     surface.fill((43 ,135 ,209))
