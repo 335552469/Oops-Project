@@ -10,7 +10,6 @@ run = True
 clicks = 0
 level = 0
 
-# Isaak Makes a
 class Box(object):
 
     def __init__(self, x, y, width, height, order): # innitialize some basic values of our boxes 
