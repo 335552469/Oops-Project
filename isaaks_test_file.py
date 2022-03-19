@@ -103,7 +103,7 @@ score = 0
 while True:
     surface.fill((43 ,135 ,209))
     font = pygame.font.SysFont('Cooper', 30)
-    write = font.render("HighScore: " + str(highscore.score) + "                               Score: " + str(score), True, (0, 0, 0))
+    write = font.render("HighScore: " + str(highscore.score) + "                               Level: " + str(score+1), True, (0, 0, 0))
     surface.blit(write, (55, 20)) 
 
     for i in box_matrix:
@@ -136,7 +136,7 @@ while True:
                             new_sequence()
 
                             if score >= int(highscore.score):
-                                highscore.score = str(score)
+                                highscore.score = str(score+1)
                                 highscore.write_score()
 
     if clicks == len(sequence):
