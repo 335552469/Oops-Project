@@ -65,6 +65,8 @@ class Sound:
     def shuffle(self):
         self.shuffle_sound.play()
 
+sound = Sound()
+
 box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i in range(3)]
 sequence = []
 
@@ -72,13 +74,12 @@ def new_sequence():
     x = random.randint(0, 2)
     y = random.randint(0, 2)
     sequence.append((x, y))
+    sound.shuffle()
     print(sequence)
     #for i in range(len(sequence)):         This is where the code for showing the sequence is going to go
       #  box_matrix[sequence[0]][sequence[1]].glow
 
 
-
-sound = Sound()
 
 while True:
     surface.fill((43 ,135 ,209))
