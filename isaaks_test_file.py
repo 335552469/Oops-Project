@@ -99,8 +99,6 @@ def new_sequence():
 highscore = HighScore()
 
 highscore.read_score()
-print(highscore)
-highscore.write_score(69)
 
 while True:
     surface.fill((43 ,135 ,209))
