@@ -1,10 +1,14 @@
-import pygame, sys
+from msilib import sequence
+from multiprocessing.connection import wait
+import pygame, sys, random
 pygame.init()
 
 screenX, screenY = 500, 500
 surface = pygame.display.set_mode((screenX, screenY))
 
 run = True
+clicks = 0
+level = 0
 
 # Isaak Makes a
 class Box(object):
@@ -28,8 +32,24 @@ class Box(object):
             return False
     def glow(self):
         self.box_colour = [255, 255, 255]
+    def unglow(self):
+        self.box_colour = [37,115,193]
+
 
 box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i in range(3)]
+sequence = []
+
+def new_sequence():
+    x = random.randint(0, 2)
+    y = random.randint(0, 2)
+    sequence.append((x, y))
+    print(sequence)
+    for i in range(len(sequence)):
+        box_matrix[sequence[0]][sequence[1]].glow
+    
+
+
+
 
 while True:
     surface.fill((43 ,135 ,209))
@@ -49,6 +69,19 @@ while True:
                 for j in i:
                     if j.mouse_detection(pygame.mouse.get_pos()) == True:
                         j.glow()
-        
+                        clicks += 1
+
+    if clicks == len(sequence):
+        new_sequence()
+        clicks = 0
+        for i in box_matrix:
+            for j in i:
+                j.unglow()
+
+
+    
+    
+    # box_matrix[0][0].glow()    
     pygame.display.update()
+
     
