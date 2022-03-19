@@ -102,9 +102,9 @@ highscore.read_score()
 
 while True:
     surface.fill((43 ,135 ,209))
-    font = pygame.font.SysFont('comic sans', 30)
+    font = pygame.font.SysFont('Cooper', 30)
     write = font.render("Score: " + str(highscore.score), False, (0, 0, 0))
-    surface.blit(write, (20, 5)) 
+    surface.blit(write, (55, 20)) 
 
     for i in box_matrix:
         for j in i:
