@@ -123,20 +123,22 @@ while True:
                         ypos = j.y // 153
                         if xpos == sequence[clicks][1] and ypos == sequence[clicks][0]:
                             sound.cardflip()
-                            j.glow(1,(255,255,255))
                             clicks += 1
                             if clicks == len(sequence)-1:
                                 score +=1
+                            j.glow(0.5,(0,255,0))
                         else:
-                            j.glow(1,(255,0,0))
+                            if score >= int(highscore.score):
+                                highscore.score = str(score+1)
+                                highscore.write_score(str(score+1))
+                               
+                            j.glow(0.5,(255,0,0))
                             clicks = 0
                             sequence = []
                             score = 0
                             print("you loose dumbas")
                             new_sequence()
 
-                            if score >= int(highscore.score):
-                                highscore.write_score(str(score+1))
 
     if clicks == len(sequence):
         new_sequence()
