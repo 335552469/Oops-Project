@@ -54,6 +54,17 @@ class Box(object):
                 break
 
 
+class Sound:
+    def __init__(self):
+        self.cardflip_sound = pygame.mixer.Sound("cardflip.wav")
+        self.shuffle_sound = pygame.mixer.Sound("shuffle.wav")
+
+    def cardflip(self):
+        self.cardflip_sound.play()
+
+    def shuffle(self):
+        self.shuffle_sound.play()
+
 box_matrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i in range(3)]
 sequence = []
 
@@ -67,7 +78,7 @@ def new_sequence():
 
 
 
-
+sound = Sound()
 
 while True:
     surface.fill((43 ,135 ,209))
@@ -89,7 +100,7 @@ while True:
                         xpos = j.x // 153
                         ypos = j.y // 153
                         if xpos == sequence[clicks][0] and ypos == sequence[clicks][1]:
-
+                            sound.cardflip()
                             j.glow(1)
                             clicks += 1
                         else:
