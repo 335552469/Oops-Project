@@ -131,6 +131,7 @@ while True:
                             j.glow(1,(255,0,0))
                             clicks = 0
                             sequence = []
+                            score = 0
                             print("you loose dumbas")
                             new_sequence()
 
