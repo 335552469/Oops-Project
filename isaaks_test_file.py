@@ -119,9 +119,7 @@ while True:
             for i in box_matrix:
                 for j in i:
                     if j.mouse_detection(pygame.mouse.get_pos()) == True:
-                        xpos = j.x // 153
-                        ypos = j.y // 153
-                        if xpos == sequence[clicks][1] and ypos == sequence[clicks][0]:
+                        if j.x // 153 == sequence[clicks][1] and j.y // 153 == sequence[clicks][0]:
                             sound.cardflip()
                             clicks += 1
                             if clicks == len(sequence)-1:
