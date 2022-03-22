@@ -72,8 +72,8 @@ class HighScore:
 
 class Sound:
     def __init__(self):
-        self.cardflip_sound = pygame.mixer.Sound("cardflip.wav")
-        self.shuffle_sound = pygame.mixer.Sound("shuffle.wav")
+        self.cardflip_sound = pygame.mixer.Sound("deep.mp3")
+        self.shuffle_sound = pygame.mixer.Sound("vine.mp3")
 
     def cardflip(self):
         self.cardflip_sound.play()
