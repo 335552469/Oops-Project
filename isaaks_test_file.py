@@ -32,33 +32,8 @@ class Box:
         pygame.draw.rect(surface, self.color, (self.x, self.y, self.width, self.height), 0, 9)
 
     def glow(self):
-        print(self.color, end=" ")
-        print(self.end_color)
         
-        if self.z == True:
-            for i in range(3):
-                if not self.cycle:
-                    if self.color[i] != self.end_color[i]:
-                        
-                        if self.color[i] >= self.end_color[i]:
-                            self.color[i] -= rate
-                        elif self.color[i] <= self.end_color[i]:
-                            
-                            self.color[i] += rate
-                        
-                        if self.color == self.end_color:
-                            self.cycle = True
-                else:
-                    if self.color[i] != self.start_color[i]:
-                        if self.color[i] >= self.start_color[i]:
-                            self.color[i] -= rate
-                        elif self.color[i] <= self.start_color[i]:
-                            self.color[i] += rate
-                        else:
-                            if self.color == self.start_color:
-                                self.cycle = False
-                                self.z = False
-               
+        
 
 
 box = Box(100, 100, 50, 50, blue)

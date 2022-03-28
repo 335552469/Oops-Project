@@ -7,6 +7,7 @@ screenX, screenY = 500, 500
 surface = pygame.display.set_mode((screenX, screenY))
 
 run = True
+play = 0 # 0 = Open screen, 1 = actual game, 2 = death screen
 clicks = 0
 
 class Box(object):
@@ -72,8 +73,8 @@ class HighScore:
 
 class Sound:
     def __init__(self):
-        self.cardflip_sound = pygame.mixer.Sound("cardflip.wav")
-        self.shuffle_sound = pygame.mixer.Sound("shuffle.wav")
+        self.cardflip_sound = pygame.mixer.Sound("deep.mp3")
+        self.shuffle_sound = pygame.mixer.Sound("vine.mp3")
 
     def cardflip(self):
         self.cardflip_sound.play()
@@ -100,7 +101,7 @@ highscore = HighScore()
 
 highscore.read_score()
 score = 0
-while True:
+while play == 0:
     surface.fill((43 ,135 ,209))
     font = pygame.font.SysFont('Cooper', 30)
     write = font.render("HighScore: " + str(highscore.score) + "                               Level: " + str(score+1), True, (0, 0, 0))
@@ -142,4 +143,15 @@ while True:
         new_sequence()
         clicks = 0
         
+    pygame.display.update()
+
+while play == 1:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            pygame.quit()
+            sys.exit()
+
+
+
     pygame.display.update()
