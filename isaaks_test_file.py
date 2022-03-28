@@ -1,20 +1,30 @@
+<<<<<<< HEAD
 from msilib import sequence
+=======
+
+from re import T, X
+from tkinter import Y
+from turtle import width
+>>>>>>> f3479888bb57c4a184be6a0471c1fd4021746ded
 import pygame, sys, random, time
 pygame.init()
 
 screenX, screenY = 500, 500
 surface = pygame.display.set_mode((screenX, screenY))
+blue = [0, 0, 255]
+white = [255, 255, 255]
+black = [0, 0, 0]
 
-run = True
-clicks = 0
+rate = 1
 
-class Box(object):
 
-    def __init__(self, x, y, width, height, order): # innitialize some basic values of our boxes 
+class Box:
+    def __init__(self, x, y, width, height, color):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+<<<<<<< HEAD
         self.order = order
         self.box_colour = [37,115,193]
         self.default_color = self.box_colour
@@ -93,53 +103,66 @@ def new_sequence():
     for i in sequence:
         box_matrix[i[0]][i[1]].glow(1,(255,255,255))
 
+=======
+        self.color = color
 
-highscore = HighScore()
+        self.glowing = False
+        self.end_color = white
+        self.start_color = blue
+        self.z = False
+        self.cycle = False
+    
+    def draw(self):
+        pygame.draw.rect(surface, self.color, (self.x, self.y, self.width, self.height), 0, 9)
 
-highscore.read_score()
-score = 0
+    def glow(self):
+        print(self.color, end=" ")
+        print(self.end_color)
+        
+        if self.z == True:
+            for i in range(3):
+                if not self.cycle:
+                    if self.color[i] != self.end_color[i]:
+                        
+                        if self.color[i] >= self.end_color[i]:
+                            self.color[i] -= rate
+                        elif self.color[i] <= self.end_color[i]:
+                            
+                            self.color[i] += rate
+                        
+                        if self.color == self.end_color:
+                            self.cycle = True
+                else:
+                    if self.color[i] != self.start_color[i]:
+                        if self.color[i] >= self.start_color[i]:
+                            self.color[i] -= rate
+                        elif self.color[i] <= self.start_color[i]:
+                            self.color[i] += rate
+                        else:
+                            if self.color == self.start_color:
+                                self.cycle = False
+                                self.z = False
+               
+>>>>>>> f3479888bb57c4a184be6a0471c1fd4021746ded
+
+
+box = Box(100, 100, 50, 50, blue)
 while True:
-    surface.fill((43 ,135 ,209))
-    font = pygame.font.SysFont('Cooper', 30)
-    write = font.render("HighScore: " + str(highscore.score) + "                               Level: " + str(score+1), True, (0, 0, 0))
-    surface.blit(write, (55, 20)) 
-
-    for i in box_matrix:
-        for j in i:
-            j.draw_box(surface)
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
             pygame.quit()
             sys.exit()
+
         if event.type == pygame.MOUSEBUTTONDOWN:
-            for i in box_matrix:
-                for j in i:
-                    if j.mouse_detection(pygame.mouse.get_pos()) == True:
-                        xpos = j.x // 153
-                        ypos = j.y // 153
-                        if xpos == sequence[clicks][1] and ypos == sequence[clicks][0]:
-                            sound.cardflip()
-                            clicks += 1
-                            if clicks == len(sequence)-1:
-                                score +=1
-                            j.glow(0.5,(0,255,0))
-                        else:
-                            if score >= int(highscore.score):
-                                highscore.score = str(score+1)
-                                highscore.write_score(str(score+1))
-                               
-                            j.glow(0.5,(255,0,0))
-                            clicks = 0
-                            sequence = []
-                            score = 0
-                            print("you loose dumbas")
-                            new_sequence()
+            mouse = pygame.mouse.get_pos()
+            if box.x <= mouse[0] <= box.x + box.width and box.y <= mouse[1] <= box.y + box.height:
+                box.z = True
+                
+    
+    box.glow()
+    surface.fill(black)
+    
+    box.draw()
 
-
-    if clicks == len(sequence):
-        new_sequence()
-        clicks = 0
-        
     pygame.display.update()
