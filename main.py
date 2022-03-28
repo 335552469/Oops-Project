@@ -9,6 +9,7 @@ surface = pygame.display.set_mode((screenX, screenY))
 run = True
 play = 0 # 0 = Open screen, 1 = actual game, 2 = death screen
 clicks = 0
+lose = False
 
 class Box(object):
 
@@ -108,7 +109,7 @@ while play == 0:
             run = False
             pygame.quit()
             sys.exit()
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
             play = 1
         
     surface.fill((43 ,135 ,209))
@@ -171,12 +172,17 @@ while play == 1:
                             score = 0
                             print("yuo loose dumbas")
                             play = 2
-                            new_sequence()
+                            break
+                            
 
 
-    if clicks == len(sequence):
+    if clicks == len(sequence) and play != 2:
         new_sequence()
         clicks = 0
+    
+    if lose:
+        new_sequence()
+        lose = False
         
     pygame.display.update()
 
@@ -186,7 +192,7 @@ while play == 2:
             run = False
             pygame.quit()
             sys.exit()
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
             play = 1
 
 
@@ -196,6 +202,9 @@ while play == 2:
     write = font.render("Sequence Memory Test", True, (255, 255, 255))
     surface.blit(write, (55, 230))
 
+    font = pygame.font.SysFont('Cooper', 30)
+    write = font.render("Press any key to try again.", True, (255, 255, 255))
+    surface.blit(write, (120, 300)) 
     
     pygame.draw.rect(surface, (255, 255, 255), (190, 75 , 50 , 50), 0, 9)
     pygame.draw.rect(surface, (255, 255, 255), (250, 75 , 50 , 50), 0, 9)
@@ -206,3 +215,4 @@ while play == 2:
     pygame.draw.rect(surface, (43, 135, 209), (257, 143, 35 , 35), 0, 9)
 
     pygame.display.update()
+    lose = True

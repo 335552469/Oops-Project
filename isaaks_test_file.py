@@ -1,26 +1,23 @@
-
-from re import T, X
-from tkinter import Y
-from turtle import width
+from msilib import sequence
+from multiprocessing.connection import wait
 import pygame, sys, random, time
 pygame.init()
 
 screenX, screenY = 500, 500
 surface = pygame.display.set_mode((screenX, screenY))
-blue = [0, 0, 255]
-white = [255, 255, 255]
-black = [0, 0, 0]
 
-rate = 1
+run = True
+play = 0 # 0 = Open screen, 1 = actual game, 2 = death screen
+clicks = 0
+lose = False
 
+class Box(object):
 
-class Box:
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x, y, width, height, order): # innitialize some basic values of our boxes 
         self.x = x
         self.y = y
         self.width = width
         self.height = height
-<<<<<<< HEAD
         self.order = order
         self.box_colour = [37,115,193]
         self.default_color = self.box_colour
@@ -43,8 +40,9 @@ class Box:
         if fract < 0:
             return pygame.Color(*self.default_color)
         return color1.lerp(color, fract)
-        
+
     def glow(self,length,color):
+        
         start_time = time.time()
         while True:
             time.sleep(0.01)
@@ -76,8 +74,8 @@ class HighScore:
 
 class Sound:
     def __init__(self):
-        self.cardflip_sound = pygame.mixer.Sound("cardflip.wav")
-        self.shuffle_sound = pygame.mixer.Sound("shuffle.wav")
+        self.cardflip_sound = pygame.mixer.Sound("deep.mp3")
+        self.shuffle_sound = pygame.mixer.Sound("vine.mp3")
 
     def cardflip(self):
         self.cardflip_sound.play()
@@ -99,68 +97,133 @@ def new_sequence():
     for i in sequence:
         box_matrix[i[0]][i[1]].glow(1,(255,255,255))
 
-=======
-        self.color = color
 
-        self.glowing = False
-        self.end_color = white
-        self.start_color = blue
-        self.z = False
-        self.cycle = False
-    
-    def draw(self):
-        pygame.draw.rect(surface, self.color, (self.x, self.y, self.width, self.height), 0, 9)
+highscore = HighScore()
 
-    def glow(self):
-        
-<<<<<<< HEAD
-        
-=======
-        if self.z == True:
-            for i in range(3):
-                if not self.cycle:
-                    if self.color[i] != self.end_color[i]:
-                        
-                        if self.color[i] >= self.end_color[i]:
-                            self.color[i] -= rate
-                        elif self.color[i] <= self.end_color[i]:
-                            
-                            self.color[i] += rate
-                        
-                        if self.color == self.end_color:
-                            self.cycle = True
-                else:
-                    if self.color[i] != self.start_color[i]:
-                        if self.color[i] >= self.start_color[i]:
-                            self.color[i] -= rate
-                        elif self.color[i] <= self.start_color[i]:
-                            self.color[i] += rate
-                        else:
-                            if self.color == self.start_color:
-                                self.cycle = False
-                                self.z = False
-               
->>>>>>> f3479888bb57c4a184be6a0471c1fd4021746ded
->>>>>>> ff70f55a332cef1005db9af154b85d7efd89e845
+highscore.read_score()
+score = 0
 
+def main():
+    global score, clicks, sequence, play, lose
+    surface.fill((43 ,135 ,209))
+    font = pygame.font.SysFont('Cooper', 30)
+    write = font.render("HighScore: " + str(highscore.score) + "                               Level: " + str(score+1), True, (0, 0, 0))
+    surface.blit(write, (55, 20)) 
 
-box = Box(100, 100, 50, 50, blue)
-while True:
+    for i in box_matrix:
+        for j in i:
+            j.draw_box(surface)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
             pygame.quit()
             sys.exit()
-
         if event.type == pygame.MOUSEBUTTONDOWN:
-            mouse = pygame.mouse.get_pos()
-            if box.x <= mouse[0] <= box.x + box.width and box.y <= mouse[1] <= box.y + box.height:
-                box.z = True
-                
+            for i in box_matrix:
+                for j in i:
+                    if j.mouse_detection(pygame.mouse.get_pos()) == True:
+                        if j.x // 153 == sequence[clicks][1] and j.y // 153 == sequence[clicks][0]:
+                            sound.cardflip()
+                            clicks += 1
+                            if clicks == len(sequence)-1:
+                                score +=1
+                            j.glow(0.5,(0,255,0))
+                        else:
+                            if score >= int(highscore.score):
+                                highscore.score = str(score+1)
+                                highscore.write_score(str(score+1))
+                               
+                            j.glow(0.5,(255,0,0))
+                            clicks = 0
+                            sequence = []
+                            score = 0
+                            print("yuo loose dumbas")
+                            play = 2
+                            break
+                            
+
+
+    if clicks == len(sequence) and play != 2:
+        new_sequence()
+        clicks = 0
     
-    box.glow()
-    surface.fill(black)
-    
-    box.draw()
+    if lose:
+        new_sequence()
+        lose = False
+        
+    pygame.display.update()
+
+def start():
+    global play
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+            play = 1
+        
+    surface.fill((43 ,135 ,209))
+    font = pygame.font.SysFont('Cooper', 50)
+    write = font.render("Sequence Memory Test", True, (255, 255, 255))
+    surface.blit(write, (55, 230)) 
+
+    font = pygame.font.SysFont('Cooper', 30)
+    write = font.render("Memorize the pattern.", True, (255, 255, 255))
+    #surface.blit(write, (140, 280)) 
+
+    font = pygame.font.SysFont('Cooper', 30)
+    write = font.render("Press any key to begin.", True, (255, 255, 255))
+    surface.blit(write, (140, 300)) 
+
+    pygame.draw.rect(surface, (255, 255, 255), (190, 75 , 50 , 50), 0, 9)
+    pygame.draw.rect(surface, (255, 255, 255), (250, 75 , 50 , 50), 0, 9)
+
+    pygame.draw.rect(surface, (255, 255, 255), (190, 135 , 50 , 50), 0, 9)
+    pygame.draw.rect(surface, (255, 255, 255), (250, 135 , 50 , 50), 0, 9)
+
+    pygame.draw.rect(surface, (43, 135, 209), (257, 143, 35 , 35), 0, 9)
 
     pygame.display.update()
+
+def death():
+    global play
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+            play = 1
+
+
+    surface.fill((43 ,135 ,209))
+
+    font = pygame.font.SysFont('Cooper', 50)
+    write = font.render("Sequence Memory Test", True, (255, 255, 255))
+    surface.blit(write, (55, 230))
+
+    font = pygame.font.SysFont('Cooper', 30)
+    write = font.render("Press any key to try again.", True, (255, 255, 255))
+    surface.blit(write, (120, 300)) 
+    
+    pygame.draw.rect(surface, (255, 255, 255), (190, 75 , 50 , 50), 0, 9)
+    pygame.draw.rect(surface, (255, 255, 255), (250, 75 , 50 , 50), 0, 9)
+
+    pygame.draw.rect(surface, (255, 255, 255), (190, 135 , 50 , 50), 0, 9)
+    pygame.draw.rect(surface, (255, 255, 255), (250, 135 , 50 , 50), 0, 9)
+
+    pygame.draw.rect(surface, (43, 135, 209), (257, 143, 35 , 35), 0, 9)
+
+    pygame.display.update()
+    lose = True
+
+
+while True:
+    if play == 0:
+        start()
+    elif play == 1:
+        main()
+    else:
+        death()
