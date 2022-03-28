@@ -134,7 +134,7 @@ while True:
                             clicks = 0
                             sequence = []
                             score = 0
-                            print("you loose dumbas")
+                            print("yuo loose dumbas")
                             new_sequence()
 
 
