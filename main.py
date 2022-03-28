@@ -120,6 +120,8 @@ while play == 0:
     write = font.render("Memorize the pattern.", True, (255, 255, 255))
     surface.blit(write, (140, 250)) 
 
+    pygame.draw.rect(surface, (255, 255, 255), (200, 100 , 50 , 50), 0, 9)
+
     pygame.display.update()
 
 
