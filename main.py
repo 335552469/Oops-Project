@@ -114,13 +114,23 @@ while play == 0:
     surface.fill((43 ,135 ,209))
     font = pygame.font.SysFont('Cooper', 50)
     write = font.render("Sequence Memory Test", True, (255, 255, 255))
-    surface.blit(write, (55, 200)) 
+    surface.blit(write, (55, 230)) 
 
     font = pygame.font.SysFont('Cooper', 30)
     write = font.render("Memorize the pattern.", True, (255, 255, 255))
-    surface.blit(write, (140, 250)) 
+    #surface.blit(write, (140, 280)) 
 
-    pygame.draw.rect(surface, (255, 255, 255), (200, 100 , 50 , 50), 0, 9)
+    font = pygame.font.SysFont('Cooper', 30)
+    write = font.render("Press any key to begin.", True, (255, 255, 255))
+    surface.blit(write, (140, 300)) 
+
+    pygame.draw.rect(surface, (255, 255, 255), (190, 75 , 50 , 50), 0, 9)
+    pygame.draw.rect(surface, (255, 255, 255), (250, 75 , 50 , 50), 0, 9)
+
+    pygame.draw.rect(surface, (255, 255, 255), (190, 135 , 50 , 50), 0, 9)
+    pygame.draw.rect(surface, (255, 255, 255), (250, 135 , 50 , 50), 0, 9)
+
+    pygame.draw.rect(surface, (43, 135, 209), (257, 143, 35 , 35), 0, 9)
 
     pygame.display.update()
 
@@ -168,5 +178,14 @@ while play == 1:
         clicks = 0
         
     pygame.display.update()
+
+while play == 2:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            play = 1
 
 #c0oc
