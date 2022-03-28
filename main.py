@@ -101,7 +101,20 @@ highscore = HighScore()
 
 highscore.read_score()
 score = 0
+
 while play == 0:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            pygame.quit()
+            sys.exit()
+
+
+
+    pygame.display.update()
+
+
+while play == 1:
     surface.fill((43 ,135 ,209))
     font = pygame.font.SysFont('Cooper', 30)
     write = font.render("HighScore: " + str(highscore.score) + "                               Level: " + str(score+1), True, (0, 0, 0))
@@ -145,13 +158,3 @@ while play == 0:
         
     pygame.display.update()
 
-while play == 1:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-            pygame.quit()
-            sys.exit()
-
-
-
-    pygame.display.update()
