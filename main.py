@@ -108,6 +108,11 @@ while play == 0:
             run = False
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN:
+            play = 1
+        
+    surface.fill((43 ,135 ,209))
+        
 
 
 
