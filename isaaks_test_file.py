@@ -1,5 +1,4 @@
 from msilib import sequence
-from multiprocessing.connection import wait
 import pygame, sys, random, time
 pygame.init()
 
@@ -38,9 +37,8 @@ class Box(object):
         if fract < 0:
             return pygame.Color(*self.default_color)
         return color1.lerp(color, fract)
-
-    def glow(self,length,color):
         
+    def glow(self,length,color):
         start_time = time.time()
         while True:
             time.sleep(0.01)
