@@ -112,9 +112,13 @@ while play == 0:
             play = 1
         
     surface.fill((43 ,135 ,209))
-        
+    font = pygame.font.SysFont('Cooper', 50)
+    write = font.render("Sequence Memory Test", True, (255, 255, 255))
+    surface.blit(write, (55, 200)) 
 
-
+    font = pygame.font.SysFont('Cooper', 30)
+    write = font.render("Memorize the pattern.", True, (255, 255, 255))
+    surface.blit(write, (140, 250)) 
 
     pygame.display.update()
 
