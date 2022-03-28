@@ -112,7 +112,8 @@ while play == 0:
             play = 1
         
     surface.fill((43 ,135 ,209))
-        
+    
+    pygame.draw.rect(surface, (255, 255, 255), (100, 100 , 50 , 50), 0, 9)
 
 
 
