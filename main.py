@@ -170,6 +170,7 @@ while play == 1:
                             sequence = []
                             score = 0
                             print("yuo loose dumbas")
+                            play = 2
                             new_sequence()
 
 
@@ -188,4 +189,20 @@ while play == 2:
         if event.type == pygame.KEYDOWN:
             play = 1
 
-#c0oc
+
+    surface.fill((43 ,135 ,209))
+
+    font = pygame.font.SysFont('Cooper', 50)
+    write = font.render("Sequence Memory Test", True, (255, 255, 255))
+    surface.blit(write, (55, 230))
+
+    
+    pygame.draw.rect(surface, (255, 255, 255), (190, 75 , 50 , 50), 0, 9)
+    pygame.draw.rect(surface, (255, 255, 255), (250, 75 , 50 , 50), 0, 9)
+
+    pygame.draw.rect(surface, (255, 255, 255), (190, 135 , 50 , 50), 0, 9)
+    pygame.draw.rect(surface, (255, 255, 255), (250, 135 , 50 , 50), 0, 9)
+
+    pygame.draw.rect(surface, (43, 135, 209), (257, 143, 35 , 35), 0, 9)
+
+    pygame.display.update()
