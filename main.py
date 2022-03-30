@@ -19,7 +19,7 @@ def thread(function):
 
 class Box(object):
 
-    def __init__(self, x, y, width, height, order): # innitializes values of the boxes 
+    def __init__(self, x, y, width, height, order): # initializes values of the boxes 
         self.x = x
         self.y = y
         self.width = width
