@@ -140,7 +140,7 @@ while play == 1: # While loop for the main game
     surface.fill((43 ,135 ,209)) # fills the screen a certain colour
     font = pygame.font.SysFont('Cooper', 30)
     write = font.render("HighScore: " + str(highscore.score) + "                               Level: " + str(score+1), True, (0, 0, 0))
-    surface.blit(write, (55, 20)) # Writes the highscore and the level on the screen
+    surface.blit(write, (55, 20)) # Writes the highscore and the level at the top of the screen
 
     for i in box_matrix:
         for j in i:
@@ -159,9 +159,9 @@ while play == 1: # While loop for the main game
                             sound.cardflip() # Plays the correct sound
                             correct_clicks += 1
                             if correct_clicks == len(sequence)-1:
-                                score +=1 # adds to the plaers score
+                                score +=1 # adds to the players score
                             j.glow(0.5,(0,255,0)) # makes the box glow white if the player has clicked the correct box
-                        else: # if the player correct_clicks the wrong box
+                        else: # if the player clicks the wrong box
                             if score >= int(highscore.score): # Checks if the player has beat their highscore
                                 highscore.score = str(score+1)
                                 highscore.write_score(str(score+1)) # Adds the new highscore to the "highscore.txt" file
@@ -181,7 +181,7 @@ while play == 1: # While loop for the main game
         correct_clicks = 0
     
     if lose: # Checks if the player has lost
-        new_sequence() # Starts the new round
+        new_sequence() # Starts a new round
         lose = False
         
     pygame.display.update() # Updates the screen
