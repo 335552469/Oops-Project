@@ -33,7 +33,7 @@ class Box(object):
             return False
 
     def interpolateColor(self, startTime, maxFadeTime, color): # Interpolates the fading of a given color based on the starting color,
-                                                                   # end color, and time.
+                                                               # end color, and time.
         fract = (time.time() - startTime) / (maxFadeTime)
         if fract > 0.5:
             fract = 1 - fract * 1.3
