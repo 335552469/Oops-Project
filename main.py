@@ -5,6 +5,7 @@ pygame.init()
 
 screenX, screenY = 500, 500 # Dimensions of the game window
 surface = pygame.display.set_mode((screenX, screenY))
+pygame.display.set_caption("Sequence Game") # Sets the caption
 
 run = True
 play = 0 # 0 = Open screen, 1 = main game, 2 = death screen
