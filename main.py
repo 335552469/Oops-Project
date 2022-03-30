@@ -56,8 +56,8 @@ class Box(object):
         for i in range(math.floor(length*100)):
             currentColor = self.interpolateColor(startTime,length,pygame.Color(color))
             self.boxColour = currentColor
-            self.drawBox(surface)
-            pygame.display.flip()
+            #self.drawBox(surface)
+            #pygame.display.flip()
             time.sleep(0.01)
         return 1354
 
