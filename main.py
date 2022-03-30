@@ -220,7 +220,7 @@ class Screen:
             pygame.draw.rect(surface, (43, 135, 209), (257, 143, 35 , 35), 0, 9)   #
 
             pygame.display.update() # Updates the screen
-            lose = True
+            self.lose = True
 
 mainGame = Screen(play, sequence, lose, correctClicks, score)
 while True:
