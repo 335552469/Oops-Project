@@ -1,16 +1,22 @@
 from msilib import sequence                 #
 from multiprocessing.connection import wait # Imports
 import pygame, sys, random, time, math      #
+import threading
 pygame.init()
 
 screenX, screenY = 500, 500 # Dimensions of the game window
 surface = pygame.display.set_mode((screenX, screenY))
-pygame.display.set_caption("Sequence Game") # Sets the caption
 
 run = True
 play = 0 # 0 = Open screen, 1 = main game, 2 = death screen
 correctClicks = 0
 lose = False
+
+def thread(function):
+    def fix(*x, **y):
+        x = threading.Thread(target=function, args=x, kwargs=y)
+        x.start()
+    return fix
 
 class Box(object):
 
@@ -43,7 +49,9 @@ class Box(object):
             return pygame.Color(*self.defaultColor)
         return color1.lerp(color, fract)
 
-    def glow(self,length,color):
+    @thread
+    def glow(self,length,color,waitTime):
+        time.sleep(waitTime)
         startTime = time.time() # Fades the color of a box in and out
         for i in range(math.floor(length*100)):
             currentColor = self.interpolateColor(startTime,length,pygame.Color(color))
@@ -51,6 +59,7 @@ class Box(object):
             self.drawBox(surface)
             pygame.display.flip()
             time.sleep(0.01)
+        return 1354
 
 class HighScore:
     def __init__(self): # Initiates values for highscore
@@ -69,6 +78,7 @@ class HighScore:
 
     def __str__(self):
         return f"The high score is {self.score}" # Text to present the highscore on the screen
+
 
 
 class Sound:
@@ -92,9 +102,9 @@ def newSequence(): # Controls the sequence of flashing boxes
     y = random.randint(0, 2)
     sequence.append([x, y]) # adds a specific box into the sequence
     sound.shuffle() # plays the next round sound
+    for i in range(len(sequence)):
+        x = boxMatrix[sequence[i][0]][sequence[i][1]].glow(1,(255,255,255),i)
 
-    for i in sequence:
-        boxMatrix[i[0]][i[1]].glow(1,(255,255,255)) # makes the random box in the sequence glow 
 
 
 highScore = HighScore()
@@ -165,13 +175,13 @@ class Screen:
                                     self.correctClicks += 1
                                     if self.correctClicks == len(self.sequence)-1:
                                         self.score +=1 # adds to the plaers score
-                                    j.glow(0.5,(0,255,0)) # makes the box glow white if the player has clicked the correct box
+                                    j.glow(0.5,(0,255,0),0) # makes the box glow white if the player has clicked the correct box
                                 else: # if the player correctClicks the wrong box
                                     if self.score >= int(highScore.score): # Checks if the player has beat their highscore
                                         highScore.score = str(self.score+1)
                                         highScore.writeScore(str(self.score+1)) # Adds the new highscore to the "highscore.txt" file
                                     
-                                    j.glow(0.5,(255,0,0)) # Makes the box glow red if the player has clicked the wrong box
+                                    j.glow(0.5,(255,0,0),0) # Makes the box glow red if the player has clicked the wrong box
                                     self.correctClicks = 0         #
                                     self.sequence = []              #
                                     self.score = 0                  # Resets correctClicks, the box sequence, the score, stops this while loop, and starts the lose screen while loop
@@ -221,7 +231,7 @@ class Screen:
             pygame.draw.rect(surface, (43, 135, 209), (257, 143, 35 , 35), 0, 9)   #
 
             pygame.display.update() # Updates the screen
-            self.lose = True
+            lose = True
 
 mainGame = Screen(play, sequence, lose, correctClicks, score)
 while True:
