@@ -1,5 +1,4 @@
-from msilib import sequence
-from multiprocessing.connection import wait
+
 import pygame, sys, random, time
 pygame.init()
 
@@ -158,7 +157,6 @@ def start():
     global play
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
@@ -168,10 +166,6 @@ def start():
     font = pygame.font.SysFont('Cooper', 50)
     write = font.render("Sequence Memory Test", True, (255, 255, 255))
     surface.blit(write, (55, 230)) 
-
-    font = pygame.font.SysFont('Cooper', 30)
-    write = font.render("Memorize the pattern.", True, (255, 255, 255))
-    #surface.blit(write, (140, 280)) 
 
     font = pygame.font.SysFont('Cooper', 30)
     write = font.render("Press any key to begin.", True, (255, 255, 255))
@@ -188,10 +182,9 @@ def start():
     pygame.display.update()
 
 def death():
-    global play
+    global play, lose
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
@@ -201,7 +194,7 @@ def death():
     surface.fill((43 ,135 ,209))
 
     font = pygame.font.SysFont('Cooper', 50)
-    write = font.render("Sequence Memory Test", True, (255, 255, 255))
+    write = font.render("You Lost", True, (255, 255, 255))
     surface.blit(write, (55, 230))
 
     font = pygame.font.SysFont('Cooper', 30)
