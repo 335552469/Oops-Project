@@ -14,8 +14,7 @@ lose = False
 
 def thread(function):
     def fix(*x, **y):
-        x = threading.Thread(target=function, args=x, kwargs=y)
-        x.start()
+        threading.Thread(target=function, args=x, kwargs=y).start()
     return fix
 
 class Box(object):
