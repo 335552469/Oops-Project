@@ -61,6 +61,16 @@ class Box(object):
             time.sleep(0.01)
         return 1354
 
+    def freezeGlow(self,length,color,waitTime):
+        time.sleep(waitTime)
+        startTime = time.time() # Fades the color of a box in and out without threading
+        for i in range(math.floor(length*100)):
+            currentColor = self.interpolateColor(startTime,length,pygame.Color(color))
+            self.boxColour = currentColor
+            self.drawBox(surface)
+            pygame.display.flip()
+            time.sleep(0.01)
+
 class HighScore:
     def __init__(self): # Initiates values for highscore
         self.score = 0
@@ -89,7 +99,9 @@ class Sound:
     def cardflip(self):
         self.cardflipSound.play() # Plays the sound the happens when a box is clicked
 
+    @thread
     def shuffle(self):
+        time.sleep(0.5)
         self.shuffleSound.play() # Plays the sound that happens at the beginning of each round
 
 sound = Sound()
@@ -103,7 +115,7 @@ def newSequence(): # Controls the sequence of flashing boxes
     sequence.append([x, y]) # adds a specific box into the sequence
     sound.shuffle() # plays the next round sound
     for i in range(len(sequence)):
-        x = boxMatrix[sequence[i][0]][sequence[i][1]].glow(1,(255,255,255),i)
+        x = boxMatrix[sequence[i][0]][sequence[i][1]].glow(1 * (1 - 0.05 * len(sequence)),(255,255,255),i+1)
 
 
 
@@ -181,7 +193,7 @@ class Screen:
                                         highScore.score = str(self.score+1)
                                         highScore.writeScore(str(self.score+1)) # Adds the new highscore to the "highscore.txt" file
                                     
-                                    j.glow(0.5,(255,0,0),0) # Makes the box glow red if the player has clicked the wrong box
+                                    j.freezeGlow(0.5,(255,0,0),0) # Makes the box glow red if the player has clicked the wrong box
                                     self.correctClicks = 0         #
                                     self.sequence = []              #
                                     self.score = 0                  # Resets correctClicks, the box sequence, the score, stops this while loop, and starts the lose screen while loop
