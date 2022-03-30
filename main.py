@@ -1,6 +1,6 @@
 from msilib import sequence                 #
 from multiprocessing.connection import wait # Imports
-import pygame, sys, random, time            #
+import pygame, sys, random, time, math      #
 pygame.init()
 
 screenX, screenY = 500, 500 # Dimensions of the game window
@@ -44,14 +44,12 @@ class Box(object):
 
     def glow(self,length,color):
         startTime = time.time() # Fades the color of a box in and out
-        while True:
-            time.sleep(0.01)
+        for i in range(math.floor(length*100)):
             currentColor = self.interpolateColor(startTime,length,pygame.Color(color))
             self.boxColour = currentColor
             self.drawBox(surface)
             pygame.display.flip()
-            if startTime+length < time.time():
-                break
+            time.sleep(0.01)
 
 class HighScore:
     def __init__(self): # Initiates values for highscore
