@@ -32,7 +32,8 @@ class Box(object):
         else:
             return False
 
-    def interpolate_color(self, start_time, max_fade_time, color):
+    def interpolate_color(self, start_time, max_fade_time, color): # Interpolates the fading of a given color based on the starting color,
+                                                                   # end color, and time.
         fract = (time.time() - start_time) / (max_fade_time)
         if fract > 0.5:
             fract = 1 - fract * 1.3
@@ -42,8 +43,7 @@ class Box(object):
         return color1.lerp(color, fract)
 
     def glow(self,length,color):
-        
-        start_time = time.time()
+        start_time = time.time() # Fades the color of a box in and out
         while True:
             time.sleep(0.01)
             current_color = self.interpolate_color(start_time,length,pygame.Color(color))
