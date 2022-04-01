@@ -44,13 +44,9 @@ class Box(object):
         return color1.lerp(color, fract)
 
 
-    def glow(self,length,color):
-        rate = .01
-        for i in range(3):
-            if self.defaultColor[i] >= color[i] and self.boxColour[i] != 0 + rate:
-                self.boxColour[i] -= rate
-            elif self.boxColour[i] <= color[i] and self.boxColour[i] != 255 - rate:
-                self.boxColour[i] += rate
+    def glow(self,):
+        
+
 
 class HighScore:
     def __init__(self): # Initiates values for highscore
