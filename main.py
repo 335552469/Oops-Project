@@ -219,14 +219,11 @@ class Screen:
 
 
             if self.correctClicks == len(self.sequence) and len(self.sequence) != 0 and self.play != 2: # checks if the player has completed the round
-                print("LOST")
-                newSequence(*self.sequence) # Starts the next round
+                print("WON RESET")
+                newSequence(self.sequence) # Starts the next round
                 self.correctClicks = 0
             
-            elif self.lose: # Checks if the player has lost
-                newSequence(*self.sequence) # Starts the new round
-                self.lose = False
-                
+
             pygame.display.update() # Updates the screen
 
     def death(self):
