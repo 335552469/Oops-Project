@@ -2,6 +2,8 @@ from msilib import sequence                 #
 from multiprocessing.connection import wait # Imports
 import pygame, sys, random, time, math      #
 import threading
+
+from pyrsistent import freeze
 pygame.init()
 
 screenX, screenY = 500, 500 # Dimensions of the game window
@@ -11,6 +13,9 @@ run = True
 play = 0 # 0 = Open screen, 1 = main game, 2 = death screen
 correctClicks = 0
 lose = False
+
+global freezee
+freezee = True
 
 def thread(function):
     def fix(*x, **y):
@@ -50,14 +55,17 @@ class Box(object):
 
     @thread
     def glow(self,length,color,waitTime):
+        global freezee
         time.sleep(waitTime)
         startTime = time.time() # Fades the color of a box in and out
+        if color == pygame.Color(255,255,255): freezee = True
         for i in range(math.floor(length*100)):
             currentColor = self.interpolateColor(startTime,length,pygame.Color(color))
             self.boxColour = currentColor
             #self.drawBox(surface)
             #pygame.display.flip()
             time.sleep(0.01)
+        freezee = False
         return 1354
 
     def freezeGlow(self,length,color,waitTime):
@@ -163,6 +171,7 @@ class Screen:
             pygame.display.update() # Updates the screen
 
     def main(self):
+        global freezee
         while self.play == 1: # While loop for the main game
             surface.fill((43 ,135 ,209)) # fills the screen a certain colour
             font = pygame.font.SysFont('Cooper', 30)
@@ -180,26 +189,27 @@ class Screen:
                 if event.type == pygame.MOUSEBUTTONDOWN: # Checks if the mouse has been pressed
                     for i in boxMatrix:
                         for j in i:
-                            if j.mouseDetection(pygame.mouse.get_pos()) == True: # Checks if the mouse is in a box
-                                if j.x // 153 == self.sequence[self.correctClicks][1] and j.y // 153 == self.sequence[self.correctClicks][0]: # checks if the player has clicked on the correct box in the sequence
-                                    sound.cardflip() # Plays the correct sound
-                                    self.correctClicks += 1
-                                    if self.correctClicks == len(self.sequence)-1:
-                                        self.score +=1 # adds to the plaers score
-                                    j.glow(0.5,(0,255,0),0) # makes the box glow white if the player has clicked the correct box
-                                else: # if the player correctClicks the wrong box
-                                    if self.score >= int(highScore.score): # Checks if the player has beat their highscore
-                                        highScore.score = str(self.score+1)
-                                        highScore.writeScore(str(self.score+1)) # Adds the new highscore to the "highscore.txt" file
-                                    
-                                    j.freezeGlow(0.5,(255,0,0),0) # Makes the box glow red if the player has clicked the wrong box
-                                    self.correctClicks = 0         #
-                                    self.sequence = []              #
-                                    self.score = 0                  # Resets correctClicks, the box sequence, the score, stops this while loop, and starts the lose screen while loop
-                                    print("yuo loose dumbas")  #
-                                    self.play = 2                   #
-                                    break
-                                    
+                            if freezee == False:
+                                if j.mouseDetection(pygame.mouse.get_pos()) == True: # Checks if the mouse is in a box
+                                    if j.x // 153 == self.sequence[self.correctClicks][1] and j.y // 153 == self.sequence[self.correctClicks][0]: # checks if the player has clicked on the correct box in the sequence
+                                        sound.cardflip() # Plays the correct sound
+                                        self.correctClicks += 1
+                                        if self.correctClicks == len(self.sequence)-1:
+                                            self.score +=1 # adds to the plaers score
+                                        j.glow(0.5,(0,255,0),0) # makes the box glow white if the player has clicked the correct box
+                                    else: # if the player correctClicks the wrong box
+                                        if self.score >= int(highScore.score): # Checks if the player has beat their highscore
+                                            highScore.score = str(self.score+1)
+                                            highScore.writeScore(str(self.score+1)) # Adds the new highscore to the "highscore.txt" file
+                                        
+                                        j.freezeGlow(0.5,(255,0,0),0) # Makes the box glow red if the player has clicked the wrong box
+                                        self.correctClicks = 0         #
+                                        self.sequence = []              #
+                                        self.score = 0                  # Resets correctClicks, the box sequence, the score, stops this while loop, and starts the lose screen while loop
+                                        print("yuo loose dumbas")  #
+                                        self.play = 2                   #
+                                        break
+                                        
 
 
             if self.correctClicks == len(self.sequence) and self.play != 2: # checks if the player has completed the round
