@@ -117,8 +117,10 @@ boxMatrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i 
 sequence = []
 
 @thread
-def newSequence(): # Controls the sequence of flashing boxes
-    print("new sequence")
+def newSequence(sequence,reset = False): # Controls the sequence of flashing boxes
+    if reset:
+        print("new sequence",sequence)
+    print("curr sequence",sequence)
     x = random.randint(0, 2)
     y = random.randint(0, 2)
     sequence.append([x, y]) # adds a specific box into the sequence
@@ -174,6 +176,8 @@ class Screen:
 
     def main(self):
         global freezee
+        self.sequence = []
+        newSequence(self.sequence, False)
         while self.play == 1: # While loop for the main game
             surface.fill((43 ,135 ,209)) # fills the screen a certain colour
             font = pygame.font.SysFont('Cooper', 30)
@@ -216,11 +220,11 @@ class Screen:
 
             if self.correctClicks == len(self.sequence) and len(self.sequence) != 0 and self.play != 2: # checks if the player has completed the round
                 print("LOST")
-                newSequence() # Starts the next round
+                newSequence(*self.sequence) # Starts the next round
                 self.correctClicks = 0
             
             elif self.lose: # Checks if the player has lost
-                newSequence() # Starts the new round
+                newSequence(*self.sequence) # Starts the new round
                 self.lose = False
                 
             pygame.display.update() # Updates the screen
