@@ -118,9 +118,6 @@ sequence = []
 
 @thread
 def newSequence(sequence,reset = False): # Controls the sequence of flashing boxes
-    if reset:
-        print("new sequence",sequence)
-    print("curr sequence",sequence)
     x = random.randint(0, 2)
     y = random.randint(0, 2)
     sequence.append([x, y]) # adds a specific box into the sequence
@@ -219,7 +216,6 @@ class Screen:
 
 
             if self.correctClicks == len(self.sequence) and len(self.sequence) != 0 and self.play != 2: # checks if the player has completed the round
-                print("WON RESET")
                 newSequence(self.sequence) # Starts the next round
                 self.correctClicks = 0
             
