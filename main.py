@@ -116,6 +116,7 @@ sound = Sound()
 boxMatrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i in range(3)] # Creates the matrix for the 9 boxes
 sequence = []
 
+@thread
 def newSequence(): # Controls the sequence of flashing boxes
     print("new sequence")
     x = random.randint(0, 2)
@@ -213,7 +214,7 @@ class Screen:
                                         
 
 
-            if self.correctClicks == len(self.sequence) and self.play != 2: # checks if the player has completed the round
+            if self.correctClicks == len(self.sequence) and len(self.sequence) != 0 and self.play != 2: # checks if the player has completed the round
                 print("LOST")
                 newSequence() # Starts the next round
                 self.correctClicks = 0
