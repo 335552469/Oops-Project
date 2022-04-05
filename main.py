@@ -58,7 +58,7 @@ class Box(object):
         global freezee
         time.sleep(waitTime)
         startTime = time.time() # Fades the color of a box in and out
-        if color == pygame.Color(255,255,255): freezee = True
+        if color == pygame.Color(0,0,0): freezee = True
         for i in range(math.floor(length*100)):
             currentColor = self.interpolateColor(startTime,length,pygame.Color(color))
             self.boxColour = currentColor
@@ -189,6 +189,7 @@ class Screen:
                 if event.type == pygame.MOUSEBUTTONDOWN: # Checks if the mouse has been pressed
                     for i in boxMatrix:
                         for j in i:
+                            print(freezee)
                             if freezee == False:
                                 if j.mouseDetection(pygame.mouse.get_pos()) == True: # Checks if the mouse is in a box
                                     if j.x // 153 == self.sequence[self.correctClicks][1] and j.y // 153 == self.sequence[self.correctClicks][0]: # checks if the player has clicked on the correct box in the sequence
