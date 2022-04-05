@@ -12,6 +12,16 @@ run = True
 play = 0 # 0 = Open screen, 1 = main game, 2 = death screen
 correctClicks = 0
 lose = False
+<<<<<<< HEAD
+=======
+
+def thread(function):
+    def fix(*x, **y):
+        x = threading.Thread(target=function, args=x, kwargs=y)
+        x.start()
+    return fix
+
+>>>>>>> parent of 7672e36 (Update main.py)
 class Box(object):
     def __init__(self, x, y, width, height, order): # innitializes values of the boxes 
         self.x = x
