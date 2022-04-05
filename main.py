@@ -58,7 +58,7 @@ class Box(object):
         global freezee
         time.sleep(waitTime)
         startTime = time.time() # Fades the color of a box in and out
-        if color == pygame.Color(0,0,0): freezee = True
+        if color == pygame.Color(255,255,255): freezee = True
         for i in range(math.floor(length*100)):
             currentColor = self.interpolateColor(startTime,length,pygame.Color(color))
             self.boxColour = currentColor
@@ -117,6 +117,7 @@ boxMatrix = [[Box((j)*137+53, (i)*137+53, 120, 120, j) for j in range(3)] for i 
 sequence = []
 
 def newSequence(): # Controls the sequence of flashing boxes
+    print("new sequence")
     x = random.randint(0, 2)
     y = random.randint(0, 2)
     sequence.append([x, y]) # adds a specific box into the sequence
@@ -189,7 +190,6 @@ class Screen:
                 if event.type == pygame.MOUSEBUTTONDOWN: # Checks if the mouse has been pressed
                     for i in boxMatrix:
                         for j in i:
-                            print(freezee)
                             if freezee == False:
                                 if j.mouseDetection(pygame.mouse.get_pos()) == True: # Checks if the mouse is in a box
                                     if j.x // 153 == self.sequence[self.correctClicks][1] and j.y // 153 == self.sequence[self.correctClicks][0]: # checks if the player has clicked on the correct box in the sequence
@@ -214,10 +214,11 @@ class Screen:
 
 
             if self.correctClicks == len(self.sequence) and self.play != 2: # checks if the player has completed the round
+                print("LOST")
                 newSequence() # Starts the next round
                 self.correctClicks = 0
             
-            if self.lose: # Checks if the player has lost
+            elif self.lose: # Checks if the player has lost
                 newSequence() # Starts the new round
                 self.lose = False
                 
